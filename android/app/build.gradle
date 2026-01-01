@@ -7,6 +7,12 @@ apply plugin: "com.facebook.react"
  * By default you don't need to apply any configuration, just uncomment the lines you need.
  */
 react {
+
+  project.ext.vectoricons = [
+    iconFontNames: [ 'Ionicons.ttf' ] // 필요한 폰트만 지정
+]
+
+apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")
     /* Folders */
     //   The root of your project, i.e. where "package.json" lives. Default is '../..'
     // root = file("../../")
@@ -49,7 +55,6 @@ react {
     //
     //   The list of flags to pass to the Hermes compiler. By default is "-O", "-output-source-map"
     // hermesFlags = ["-O", "-output-source-map"]
-
     /* Autolinking */
     autolinkLibrariesWithApp()
 }
