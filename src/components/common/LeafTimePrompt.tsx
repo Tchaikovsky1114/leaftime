@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
 import { usePromptStore } from '../../store/promptStore';
+import Typography from './Typography';
 
 export default function LeafTimePrompt() {
   const { visible, title, message, options, subTitle, dismiss } = usePromptStore();
@@ -15,9 +16,9 @@ export default function LeafTimePrompt() {
       onBackdropPress={dismiss}
     >
       <View style={styles.container}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.subTitle}>{subTitle}</Text>
-        <Text style={styles.message}>{message}</Text>
+        <Typography variant="h2" color="#2e7d32" align="center">{title}</Typography>
+        <Typography variant="subtitle" color="#2e7d32" align="center" mt={6}>{subTitle}</Typography>
+        <Typography variant="body" color="#777" align="center" mt={6}>{message}</Typography>
 
         <View style={styles.buttonContainer}>
         {options.map((option, index) => {
@@ -31,9 +32,9 @@ export default function LeafTimePrompt() {
         dismiss();
       }}
     >
-      <Text style={isGhost ? styles.ghostText : styles.buttonText}>
+      <Typography variant="button" color={isGhost ? '#555' : '#fff'} weight={isGhost ? '500' : '600'}>
         {option.label}
-      </Text>
+      </Typography>
     </TouchableOpacity>
   );
 })}
@@ -53,28 +54,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     minHeight: 260,
     gap: 16,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#2e7d32',
-    textAlign: 'center',
-  },
-  subTitle: {
-    fontSize: 16,
-    fontWeight: '400',
-    color: '#2e7d32',
-    textAlign: 'center',
-    marginTop: 6,
-    lineHeight: 22,
-  },
-  message: {
-    fontSize: 16,
-    fontWeight: '400',
-    color: '#777',
-    textAlign: 'center',
-    marginTop: 6,
-    lineHeight: 22,
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -96,11 +75,6 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 1,
   },
-  buttonText: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: '600',
-  },
   ghostButton: {
     backgroundColor: 'transparent',
     borderWidth: 1,
@@ -110,10 +84,5 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     minWidth: 100,
     alignItems: 'center',
-  },
-  ghostText: {
-    color: '#555',
-    fontSize: 14,
-    fontWeight: '500',
   },
 });

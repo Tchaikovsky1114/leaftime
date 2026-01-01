@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   Pressable,
   ActivityIndicator,
@@ -31,6 +30,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import { joinWordsFromIndexes } from '../../util/joinWordsFromIndexes';
 import Icons from '../../assets/Icons';
 import dayjs from 'dayjs';
+import Typography from '../../components/common/Typography';
 
 export default function ReaderScreen() {
   const {
@@ -228,7 +228,7 @@ if (!pages.length || !page) {
   return (
     <SafeAreaView style={styles.centered}>
       <ActivityIndicator size="large" color="#4CAF50" />
-      <Text style={styles.loadingText}>페이지를 불러오는 중입니다...</Text>
+      <Typography variant="body" color="#666" mt={12}>페이지를 불러오는 중입니다...</Typography>
     </SafeAreaView>
   );
 }
@@ -244,7 +244,7 @@ if (!pages.length || !page) {
         </View>
       </View>
       <View style={{alignItems: 'center', justifyContent: 'space-between'}}>
-      <Text style={styles.title}>『{title}』</Text>
+      <Typography variant="h2" color="#1b5e20" weight="700" mb={12}>『{title}』</Typography>
     </View>
     <ReaderScreenAnimated
     ref={flatListRef}
@@ -257,26 +257,26 @@ if (!pages.length || !page) {
       <View style={{ marginVertical: 12, alignItems: 'center',gap: 8 }}>
       <Animated.View style={completeButtonStyle}>
           <Pressable style={styles.completeButton} onPress={handleCompleteStudy}>
-            <Text style={styles.completeText}>🌸 학습 완료</Text>
+            <Typography variant="button" color="#fff">🌸 학습 완료</Typography>
           </Pressable>
       </Animated.View>
         <View style={styles.saveWrapper}>
           <Pressable style={styles.saveButton} onPress={handleSaveSentence}>
             <Icons name="archive-sharp" size={20} color="#fff" />
-            <Text style={styles.saveText}>선택한 문장 저장하기 </Text>
+            <Typography variant="body" color="#fff" weight="700">선택한 문장 저장하기 </Typography>
 
           </Pressable>
-          <Text style={styles.savedCountText}>총 {selectedSentences.length}개 저장됨</Text>
+          <Typography variant="caption" color="#4CAF50" italic weight="900">총 {selectedSentences.length}개 저장됨</Typography>
         </View>
         <Animated.View style={[styles.feedbackBox, feedbackAnimatedStyle]}>
-          <Text style={styles.feedbackText}>
+          <Typography variant="caption" color="#2e7d32" align="center">
             🍃 "{saveStatus}" 저장했어요!
-          </Text>
+          </Typography>
         </Animated.View>
           <View style={styles.nav}>
-            <Text style={styles.progress}>
+            <Typography variant="caption" color="#555">
               {currentPageNumberInToday} / {todayTotalPages}
-          </Text>
+          </Typography>
         </View>
       </View>
 
@@ -307,11 +307,9 @@ const styles = StyleSheet.create({
   centered: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   loadingText: { marginTop: 10, fontSize: 16, color: '#666' },
   title: {
-    fontSize: 24,
-    fontWeight: '700',
+    // moved to Typography: fontSize/weight/fontFamily
     marginBottom: 12,
     color: '#1b5e20',
-    fontFamily: 'Georgia',
   },
   textWrapper: { paddingBottom: 40 },
   completeButton: {
@@ -329,12 +327,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
 
-  completeText: {
-    color: '#fff',
-    fontSize: 15,
-    fontWeight: 'bold',
-    fontFamily: 'Georgia',
-  },
+  // completeText handled by Typography
   saveStatus: {
     marginTop: 8,
     color: '#1b5e20',
@@ -389,12 +382,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 4,
   },
-  feedbackText: {
-    fontSize: 14,
-    color: '#2e7d32',
-    textAlign: 'center',
-    fontFamily: 'Georgia',
-  },
+  // feedbackText handled by Typography
   saveWrapper: {
     alignItems: 'center',
     marginBottom: 12,
@@ -416,21 +404,9 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
 
-  saveText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-    fontFamily: 'Georgia',
-  },
+  // saveText handled by Typography
 
-  savedCountText: {
-    marginTop: 8,
-    fontSize: 14,
-    color: '#4CAF50',
-    fontStyle: 'italic',
-    fontFamily: 'Georgia',
-    fontWeight: '900',
-  },
+  // savedCountText handled by Typography
   instantButtonWrapper: {
     position: 'absolute',
     bottom: 200, // ✨ 저장 버튼 위에 살짝 떠 있게
@@ -450,12 +426,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 4,
   },
-  instantButtonText: {
-    color: 'white',
-    fontSize: 15,
-    fontWeight: 'bold',
-    fontFamily: 'Georgia',
-  },
+  // instantButtonText handled by Typography
   instantTranslateButton: {
     backgroundColor: '#558B2F',
     paddingHorizontal: 24,

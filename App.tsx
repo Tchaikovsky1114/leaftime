@@ -9,6 +9,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const queryClient = new QueryClient();
 export default function App() {
+  console.log('🚀 App - Rendered');
   return (
     <NavigationContainer>
       <SafeAreaProvider>

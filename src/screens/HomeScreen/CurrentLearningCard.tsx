@@ -1,9 +1,10 @@
-import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { startReading } from '../../apis/reading/fetcher';
 import FallbackImage from '../../components/common/FallbackImage';
 import { RootNavigation } from '../../navigation/types';
 import { useNavigation } from '@react-navigation/native';
+import Typography from '../../components/common/Typography';
 
 interface Props {
   bookId: number;
@@ -42,26 +43,22 @@ export default function CurrentLearningCard({ bookId, title, coverImage }: Props
           shadowOffset: { width: 0, height: 2 },
           shadowRadius: 4,
           elevation: 2,
-
           borderRadius: 16,
-
         }}>
         <View style={styles.infoArea}>
           <FallbackImage uri={coverImage ?? ''} style={styles.cover} />
           <View style={styles.textBlock}>
-            <Text style={styles.titleText}>{title}</Text>
-            <Text style={styles.subtitleText}>조금씩 쌓이는 감각,{'\n'}오늘도 함께해요! 🍀</Text>
-
-
+            <Typography variant="body" color="#2e7d32" weight="700">{title}</Typography>
+            <Typography variant="caption" color="#ffe" weight="700" mt={8}>조금씩 쌓이는 감각,{'\n'}오늘도 함께해요! 🍀</Typography>
           </View>
         </View>
 
         <View style={styles.actionRow}>
           <Ionicons name="play-circle-outline" size={24} color="#fff" />
-          <Text style={styles.actionText}>Continue Reading</Text>
+          <Typography variant="button" color="#fff" weight="700" ml={4}>Continue Reading</Typography>
 
         </View>
-        <Text style={styles.leafText}>Let's Leaftime!</Text>
+        <Typography variant="caption" color="#88aa77" italic align="center">Let's Leaftime!</Typography>
         </View>
       </ImageBackground>
     </TouchableOpacity>
@@ -96,28 +93,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  titleText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#2e7d32',
-  },
-
-  subtitleText: {
-    fontSize: 13,
-    lineHeight: 18,
-    color: '#ffe',
-    marginTop: 8,
-    fontWeight: '700',
-
-  },
-
-  leafText: {
-    fontSize: 12,
-    color: '#88aa77',
-
-    fontStyle: 'italic',
-    textAlign: 'center',
-  },
 
   actionRow: {
     flexDirection: 'row',
@@ -127,10 +102,4 @@ const styles = StyleSheet.create({
 
   },
 
-  actionText: {
-    marginLeft: 4,
-    fontSize: 14,
-    color: '#fff',
-    fontWeight: '700',
-  },
 });

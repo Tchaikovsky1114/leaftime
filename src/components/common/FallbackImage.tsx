@@ -35,7 +35,7 @@ const FallbackImage: React.FC<FallbackImageProps> = ({
         useNativeDriver: true,
       }).start();
     }
-  }, [isFallback]);
+  }, [isFallback, opacity]);
 
   const onImageLoad = () => {
     setLoading(false);

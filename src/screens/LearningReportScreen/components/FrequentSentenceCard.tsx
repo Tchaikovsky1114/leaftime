@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable, LayoutAnimation, UIManager, Platform } from 'react-native';
+import { View, StyleSheet, Pressable, LayoutAnimation, UIManager, Platform } from 'react-native';
 import Icons from '../../../assets/Icons';
+import Typography from '../../../components/common/Typography';
 
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -21,22 +22,22 @@ export default function FrequentSentenceCard({ sentence, count }: FrequentSenten
 
   return (
     <Pressable style={styles.card} onPress={toggleExpanded}>
-      <Text style={styles.sentenceText}>{sentence}</Text>
+      <Typography variant="body" color="#2e3d2f">{sentence}</Typography>
       <View style={styles.footer}>
-        {count && <Text style={styles.countText}>저장 {count}회</Text>}
+        {count && <Typography variant="caption" color="#689f38">저장 {count}회</Typography>}
         <Icons name={expanded ? 'chevron-up' : 'chevron-down'} size={18} color="#4CAF50" />
       </View>
 
       {expanded && (
         <View style={styles.actions}>
           <Pressable style={styles.actionButton}>
-            <Text style={styles.actionText}>문장 분석</Text>
+            <Typography variant="caption" color="#1b5e20" weight="600">문장 분석</Typography>
           </Pressable>
           <Pressable style={styles.actionButton}>
-            <Text style={styles.actionText}>예문 생성</Text>
+            <Typography variant="caption" color="#1b5e20" weight="600">예문 생성</Typography>
           </Pressable>
           <Pressable style={styles.actionButton}>
-            <Text style={styles.actionText}>단어 풀이</Text>
+            <Typography variant="caption" color="#1b5e20" weight="600">단어 풀이</Typography>
           </Pressable>
         </View>
       )}

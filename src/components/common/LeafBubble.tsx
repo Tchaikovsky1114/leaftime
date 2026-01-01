@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import {
   Animated,
-  Text,
   StyleSheet,
   TouchableOpacity,
   View,
 } from 'react-native';
 // import { useReadingSelectionStore } from '../../store/readingSelectionStore';
 import Icons from '../../assets/Icons';
+import Typography from './Typography';
 
 interface LeafBubbleProps {
   text: string | null;
@@ -38,19 +38,19 @@ export default function LeafBubble({
 
   return (
     <Animated.View style={[styles.bubble, { opacity }]}>
-      <Text style={styles.translation}>
-        <Text style={styles.targetLabel}>{translateTarget}</Text>
-        <Text style={styles.separator}> → </Text>
-        <Text style={styles.resultText}>{text}</Text>
-      </Text>
+      <Typography variant="body" color="#2e7d32" weight="500" mb={12}>
+        <Typography color="#33691e" weight="700">{translateTarget}</Typography>
+        <Typography color="#4caf50" weight="500"> → </Typography>
+        <Typography color="#1b5e20" weight="500">{text}</Typography>
+      </Typography>
       <View style={styles.actions}>
         <TouchableOpacity style={styles.saveBtn} onPress={() => onSave(text)}>
           <Icons name="save-outline" size={18} color="#2e7d32" />
-          <Text style={styles.saveText}>저장</Text>
+          <Typography variant="caption" color="#2e7d32" weight="600">저장</Typography>
         </TouchableOpacity>
         <TouchableOpacity onPress={onCancel} style={styles.saveBtn}>
           <Icons name="refresh" size={18} color="#2e7d32" />
-          <Text style={styles.saveText}>취소</Text>
+          <Typography variant="caption" color="#2e7d32" weight="600">취소</Typography>
         </TouchableOpacity>
       </View>
     </Animated.View>
@@ -72,24 +72,6 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 3,
   },
-  translation: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#2e7d32',
-    marginBottom: 12,
-  },
-  targetLabel: {
-    fontWeight: '700',
-    color: '#33691e',
-  },
-  separator: {
-    color: '#4caf50',
-    fontWeight: '500',
-  },
-  resultText: {
-    fontWeight: '500',
-    color: '#1b5e20',
-  },
   actions: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
@@ -104,11 +86,6 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
 
     borderRadius: 16,
-  },
-  saveText: {
-    color: '#2e7d32',
-    fontWeight: '600',
-    fontSize: 14,
   },
   undoBtn: {
     padding: 6,

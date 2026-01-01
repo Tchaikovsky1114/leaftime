@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, StyleSheet, Pressable } from 'react-native';
 import Icons from '../../../assets/Icons';
+import Typography from '../../../components/common/Typography';
 
 interface Props {
   word: string;
@@ -14,8 +15,8 @@ export default function FrequencyWordTag({ word, count, onPress, stopwordDeleteM
 
       <View style={styles.tag}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text style={styles.text}>{word}</Text>
-        <Text style={styles.count}>×{count}</Text>
+        <Typography variant="body" color="#1b5e20" weight="500">{word}</Typography>
+        <Typography variant="caption" color="#388e3c">×{count}</Typography>
         </View>
         {
           stopwordDeleteMode ?

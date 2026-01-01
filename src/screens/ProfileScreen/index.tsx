@@ -1,11 +1,12 @@
 // src/screens/ProfileScreen.tsx
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { RootNavigation } from '../../navigation/types';
 import { useAuthStore } from '../../store/authStore';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Typography from '../../components/common/Typography';
 
 export default function ProfileScreen() {
   const navigation = useNavigation<RootNavigation>();
@@ -29,31 +30,31 @@ export default function ProfileScreen() {
     <SafeAreaView style={styles.container}>
       <View style={styles.headerCard}>
         <Ionicons name="leaf-outline" size={28} color="#4CAF50" />
-        <Text style={styles.nickname}>
+        <Typography variant="subtitle" color="#2E7D32" weight="600" mt={10}>
           {user?.nickname || '사용자'}님, 안녕하세요 👋
-        </Text>
-        <Text style={styles.membership}>
+        </Typography>
+        <Typography variant="caption" color="#66BB6A" mt={4}>
           {user?.membershipType === 'PREMIUM' ? '🌟 Premium 멤버' : 'Free 멤버'}
-        </Text>
+        </Typography>
       </View>
 
       <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Review')}>
         <Ionicons name="refresh-outline" size={20} color="#4CAF50" />
-        <Text style={styles.cardText}>복습하기</Text>
+        <Typography variant="body" color="#2E7D32">복습하기</Typography>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Reports')}>
         <Ionicons name="bar-chart-outline" size={20} color="#4CAF50" />
-        <Text style={styles.cardText}>학습 리포트</Text>
+        <Typography variant="body" color="#2E7D32">학습 리포트</Typography>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Settings')}>
         <Ionicons name="settings-outline" size={20} color="#4CAF50" />
-        <Text style={styles.cardText}>설정</Text>
+        <Typography variant="body" color="#2E7D32">설정</Typography>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <Text style={styles.logoutText}>로그아웃</Text>
+        <Typography variant="button" color="#B71C1C">로그아웃</Typography>
       </TouchableOpacity>
     </SafeAreaView>
   );

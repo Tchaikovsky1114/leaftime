@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity,ScrollView} from 'react-native';
+import { View, StyleSheet, TouchableOpacity,ScrollView} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
@@ -11,6 +11,7 @@ import TimerCard from './HomeScreen/TimerCard';
 import { useCurrentReading } from '../apis/queries/queries';
 import CurrentLearningCard from './HomeScreen/CurrentLearningCard';
 import TodayReview from './HomeScreen/TodayReview';
+import Typography from '../components/common/Typography';
 
 type DrawerParamList = {
   HomeScreen: undefined;
@@ -34,7 +35,7 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       {/* 헤더 영역 */}
       <View style={styles.header}>
-        <Text style={styles.title}>Hello, Anchor 🍃</Text>
+        <Typography variant="h2" weight="600">Hello, Anchor 🍃</Typography>
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <Ionicons name="menu-outline" size={28} color="#333" />
         </TouchableOpacity>
@@ -45,9 +46,9 @@ export default function HomeScreen() {
         <TimerCard />
       {/* 1. 상단 수평 카드 2개 (8:2) */}
       <View>
-  <Text style={{ fontSize: 18, fontWeight: '600', color: '#2e7d32', marginBottom: 8 }}>
+  <Typography variant="subtitle" color="#2e7d32" weight="600" mb={8}>
     오늘의 영어 한 잎 🍃
-  </Text>
+  </Typography>
 </View>
       <View style={styles.horizontalCards}>
         <View style={styles.profileWrapper}>

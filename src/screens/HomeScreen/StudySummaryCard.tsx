@@ -1,9 +1,10 @@
 import React from 'react';
-import { Text, StyleSheet, ImageBackground } from 'react-native';
+import { StyleSheet, ImageBackground } from 'react-native';
 import { useStudySummary } from '../../apis/queries/queries';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 dayjs.extend(duration);
+import Typography from '../../components/common/Typography';
 
 export default function StudySummaryCard() {
   const { data } = useStudySummary();
@@ -21,14 +22,14 @@ export default function StudySummaryCard() {
     style={styles.card}
     >
 
-      <Text style={styles.infoLine}>
-        지난 <Text style={styles.highlight}>{totalDays}</Text>일 동안
-      </Text>
+      <Typography variant="caption" color="#2f4f4f" align="center">
+        지난 <Typography variant="subtitle" color="#388e3c" weight="700">{totalDays}</Typography>일 동안
+      </Typography>
 
-      <Text style={styles.infoLine}>
-        <Text style={styles.highlight}>{formattedTime}</Text>
+      <Typography variant="caption" color="#2f4f4f" align="center">
+        <Typography variant="subtitle" color="#388e3c" weight="700">{formattedTime}</Typography>
         {'\n'}공부했어요!
-      </Text>
+      </Typography>
     </ImageBackground>
   );
 }

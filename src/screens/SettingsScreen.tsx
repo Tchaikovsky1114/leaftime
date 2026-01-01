@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, Switch, StyleSheet } from 'react-native';
+import { View, Switch, StyleSheet } from 'react-native';
 import { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Typography from '../components/common/Typography';
 
 export default function SettingsScreen() {
   const [darkMode, setDarkMode] = useState(false);
@@ -9,15 +10,15 @@ export default function SettingsScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>⚙️ 설정</Text>
+      <Typography variant="h2" weight="700" mb={20}>⚙️ 설정</Typography>
 
       <View style={styles.settingItem}>
-        <Text style={styles.label}>다크 모드</Text>
+        <Typography variant="subtitle">다크 모드</Typography>
         <Switch value={darkMode} onValueChange={setDarkMode} />
       </View>
 
       <View style={styles.settingItem}>
-        <Text style={styles.label}>하루 읽기 제한 (4,000자)</Text>
+        <Typography variant="subtitle">하루 읽기 제한 (4,000자)</Typography>
         <Switch value={limitDailyReading} onValueChange={setLimitDailyReading} />
       </View>
     </SafeAreaView>
@@ -26,12 +27,10 @@ export default function SettingsScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 20 },
-  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 20 },
   settingItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 20,
   },
-  label: { fontSize: 18 },
 });

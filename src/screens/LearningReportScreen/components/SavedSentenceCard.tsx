@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   Pressable,
   Platform,
@@ -11,6 +10,7 @@ import {
 import Icons from '../../../assets/Icons';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { FeedbackType } from '..';
+import Typography from '../../../components/common/Typography';
 
 const captions = [
   '클릭해보면 더 많은 이야기를 들려줄 거예요 🌿',
@@ -59,12 +59,12 @@ export default function SavedSentenceCardWithFlip({ sentence, sentenceId, onPres
     <Pressable style={styles.card} onPress={toggleFlip} hitSlop={10}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6 }}>
         <Icons name="leaf" size={16} color="#4CAF50" />
-        <Text style={styles.sentenceText}>{sentence}</Text>
+        <Typography variant="body" color="#2e7d32">{sentence}</Typography>
       </View>
       {!flipped && (
         <Animated.View entering={FadeIn} exiting={FadeOut} style={styles.front} pointerEvents="auto">
           <Pressable onPress={toggleFlip}>
-            <Text style={styles.caption}>{caption}</Text>
+            <Typography variant="caption" color="#558b2f" italic>{caption}</Typography>
           </Pressable>
         </Animated.View>
       )}
@@ -95,8 +95,8 @@ function InteractionBox({ title, label, isFollowUp = false, onPress }: IBProps) 
       style={[styles.button, isFollowUp && styles.followUpButton]}
       onPress={onPress}
     >
-      <Text style={[styles.title, isFollowUp && styles.followUpTitle]}>{title}</Text>
-      <Text style={[styles.label, isFollowUp && styles.followUpLabel]}>{label}</Text>
+      <Typography variant="body" color={isFollowUp ? '#4A148C' : '#1B5E20'} weight="700" mb={4}>{title}</Typography>
+      <Typography variant="caption" color={isFollowUp ? '#6A1B9A' : '#2E7D32'} weight="400" align="center">{label}</Typography>
     </Pressable>
   );
 }
@@ -125,18 +125,6 @@ const styles = StyleSheet.create({
   back: {
     width: '100%',
   },
-  sentenceText: {
-    fontSize: 15,
-    color: '#2e7d32',
-    fontFamily: 'Georgia',
-
-  },
-  caption: {
-    fontSize: 12,
-    color: '#558b2f',
-    fontStyle: 'italic',
-    fontFamily: 'Georgia',
-  },
   actions: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -159,27 +147,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 3,
   },
-  title: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: '#1B5E20',
-    fontFamily: 'Georgia',
-    marginBottom: 4,
-  },
-  label: {
-    fontSize: 12,
-    color: '#2E7D32',
-    fontFamily: 'Georgia',
-    textAlign: 'center',
-    fontWeight: '400',
-  },
   followUpButton: {
     borderColor: '#7B1FA2',
   },
-  followUpTitle: {
-    color: '#4A148C',
-  },
-  followUpLabel: {
-    color: '#6A1B9A',
-  },
+
 });

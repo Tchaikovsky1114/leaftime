@@ -1,8 +1,9 @@
 // components/LeafTimeAlert.tsx
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
 import { useAlertStore } from '../../store/alertStore';
+import Typography from './Typography';
 
 
 export default function LeafTimeAlert() {
@@ -22,10 +23,10 @@ export default function LeafTimeAlert() {
       onBackdropPress={dismiss}
     >
       <View style={styles.modalContent}>
-        <Text style={styles.title}>{title || '알림'}</Text>
-        <Text style={styles.message}>{message}</Text>
+        <Typography variant="h2" color="#2e7d32" weight="600" mb={12}>{title || '알림'}</Typography>
+        <Typography variant="body" color="#4e4e4e" align="center" mb={20}>{message}</Typography>
         <TouchableOpacity style={styles.button} onPress={handleConfirm}>
-          <Text style={styles.buttonText}>확인</Text>
+          <Typography variant="button" color="#fff" weight="700">확인</Typography>
         </TouchableOpacity>
       </View>
     </Modal>
@@ -39,30 +40,10 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     alignItems: 'center',
   },
-  title: {
-    fontSize: 20,
-    fontFamily: 'Georgia',
-    fontWeight: '600',
-    marginBottom: 12,
-    color: '#2e7d32',
-  },
-  message: {
-    fontSize: 16,
-    fontFamily: 'Georgia',
-    textAlign: 'center',
-    color: '#4e4e4e',
-    marginBottom: 20,
-  },
   button: {
     backgroundColor: '#4CAF50',
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 28,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontFamily: 'Georgia',
-    fontWeight: 'bold',
   },
 });

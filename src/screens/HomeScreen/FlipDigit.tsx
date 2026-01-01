@@ -1,5 +1,4 @@
-// components/HomeScreen/FlipDigit.tsx
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Animated, {
   useSharedValue,
@@ -15,10 +14,7 @@ interface FlipDigitProps {
 export default function FlipDigit({ digit }: FlipDigitProps) {
   const [prevDigit, setPrevDigit] = useState(digit);
   const [currentDigit, setCurrentDigit] = useState(digit);
-
   const slideAnim = useSharedValue(0); // 0 → 1 transition
-
-  const firstUpdate = useRef(true);
 
   useEffect(() => {
     if (digit !== currentDigit) {
@@ -27,7 +23,7 @@ export default function FlipDigit({ digit }: FlipDigitProps) {
       slideAnim.value = 0;
       slideAnim.value = withTiming(1, { duration: 800 });
     }
-  }, [digit]);
+  }, [digit, currentDigit, slideAnim]);
 
   const prevStyle = useAnimatedStyle(() => ({
     position: 'absolute',

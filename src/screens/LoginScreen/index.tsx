@@ -1,7 +1,14 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  ImageBackground,
+} from 'react-native';
+import Typography from '../../components/common/Typography';
 // import { useNavigation } from '@react-navigation/native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 // import { useAuthStore } from '../../store/authStore';
 
 export default function LoginScreen() {
@@ -12,17 +19,20 @@ export default function LoginScreen() {
     <ImageBackground
       source={require('../../assets/images/background-texture.png')}
       style={styles.background}
-      imageStyle={{ resizeMode: 'cover' }}
-    >
+      imageStyle={{resizeMode: 'cover'}}>
       <View style={styles.container}>
-        <Text style={styles.label}>휴대폰 번호</Text>
+        <Typography variant="subtitle" color="#3a3a3a" mt={12} mb={8}>
+          휴대폰 번호
+        </Typography>
         <TextInput
           style={styles.input}
           keyboardType="phone-pad"
           placeholder="010-1234-5678"
           placeholderTextColor="#999"
         />
-        <Text style={styles.label}>비밀번호</Text>
+        <Typography variant="subtitle" color="#3a3a3a" mt={12} mb={8}>
+          비밀번호
+        </Typography>
         <TextInput
           style={styles.input}
           secureTextEntry
@@ -30,29 +40,30 @@ export default function LoginScreen() {
           placeholderTextColor="#999"
         />
 
-        <TouchableOpacity style={styles.button}
+        <TouchableOpacity
+          style={styles.button}
           onPress={() => {
             // 로그인 로직 추가
             // setLogin('Anchor', '1234');
             // setTimeout(() => {
             // navigation.navigate('MainTabs');
             // }, 300);
-          }}
-        >
-          <Text style={styles.buttonText}>로그인</Text>
+          }}>
+          <Typography variant="button" color="#fff">
+            로그인
+          </Typography>
         </TouchableOpacity>
         <View
-                  style={{
-                    position: 'absolute',
-                    bottom: insets.bottom + 12,
-                    left: 0,
-                    right: 0,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    paddingHorizontal: 24,
-                  }}
-                >
-        {/* <TouchableOpacity onPress={() => navigation.navigate('PhoneInput')}>
+          style={{
+            position: 'absolute',
+            bottom: insets.bottom + 12,
+            left: 0,
+            right: 0,
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingHorizontal: 24,
+          }}>
+          {/* <TouchableOpacity onPress={() => navigation.navigate('PhoneInput')}>
           <Text style={styles.linkText}>아직 계정이 없으신가요? 회원가입</Text>
         </TouchableOpacity> */}
         </View>

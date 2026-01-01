@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { verifyCode } from '../../apis/auth/fetcher';
 import { useAuthStore } from '../../store/authStore';
 import { RootNavigation } from '../../navigation/types';
 import { useAlertStore } from '../../store/alertStore';
+import Typography from '../../components/common/Typography';
 
 interface RouteParams {
   phone: string;
@@ -44,7 +45,7 @@ export default function VerifyCodeScreen() {
           imageStyle={{ resizeMode: 'cover' }}
         >
     <View style={styles.container}>
-      <Text style={styles.label}>인증번호 입력</Text>
+      <Typography variant="subtitle" color="#3a3a3a" align="center" mb={12}>인증번호 입력</Typography>
       <TextInput
         style={styles.input}
         keyboardType="number-pad"
@@ -54,7 +55,7 @@ export default function VerifyCodeScreen() {
         placeholderTextColor="#999"
       />
       <TouchableOpacity style={styles.button} onPress={handleVerify}>
-        <Text style={styles.buttonText}>확인</Text>
+        <Typography variant="button" color="#fff">확인</Typography>
       </TouchableOpacity>
     </View>
     </ImageBackground>

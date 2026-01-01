@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 // import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { requestVerificationCode } from '../../apis/auth/fetcher';
 import { VerifyCodeNavigation } from '../../navigation/types';
 import { useAlertStore } from '../../store/alertStore';
+import Typography from '../../components/common/Typography';
 
 
 export default function PhoneInputScreen() {
@@ -36,7 +37,7 @@ export default function PhoneInputScreen() {
       imageStyle={{ resizeMode: 'cover' }}
     >
       <View style={styles.container}>
-        <Text style={styles.label}>휴대폰 번호를 입력해주세요</Text>
+        <Typography variant="subtitle" color="#3a3a3a" align="center" mb={12}>휴대폰 번호를 입력해주세요</Typography>
         <TextInput
           style={styles.input}
           keyboardType="phone-pad"
@@ -46,7 +47,7 @@ export default function PhoneInputScreen() {
           placeholderTextColor="#999"
         />
         <TouchableOpacity style={styles.button} onPress={handleRequestCode}>
-          <Text style={styles.buttonText}>인증번호 받기</Text>
+          <Typography variant="button" color="#fff">인증번호 받기</Typography>
         </TouchableOpacity>
         {/* <View
           style={{

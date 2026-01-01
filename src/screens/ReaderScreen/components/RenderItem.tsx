@@ -2,7 +2,6 @@ import React, { useMemo, useCallback, useState, memo, useEffect } from 'react';
 import {
   View,
   Pressable,
-  Text,
   StyleSheet,
   Dimensions,
   ScrollView,
@@ -21,6 +20,7 @@ import { Word } from '../../../store/readingStore';
 import { useReadingSelectionStore } from '../../../store/readingSelectionStore';
 import { getSentenceBoundaryIndexes } from '../../../util/getSentenceBoundary';
 import Icons from '../../../assets/Icons';
+import Typography from '../../../components/common/Typography';
 
 const PAGE_WIDTH = Dimensions.get('window').width;
 
@@ -145,14 +145,15 @@ function RenderItem({
                     >
                       <Pressable style={styles.buttonInner} onPress={handleInstantInteraction}>
                         {
-                          translateLoading ? <ActivityIndicator size="small" color="#fff" /> : <Text style={styles.buttonText}>🍃 번역</Text>
+                          translateLoading ? <ActivityIndicator size="small" color="#fff" /> : <Typography variant="caption" color="#fff" weight="700">🍃 번역</Typography>
                         }
 
                       </Pressable>
                     </Animated.View>
                   )}
 
-                  <Text
+                  <Typography
+                    variant="body"
                     style={[
                       styles.word,
                       isSelected && styles.highlighted,
@@ -162,7 +163,7 @@ function RenderItem({
                     ]}
                   >
                     {word.text + ' '}
-                  </Text>
+                  </Typography>
                 </View>
               </Pressable>
             );
@@ -172,9 +173,9 @@ function RenderItem({
       </ScrollView>
       {!isAtBottom && (
   <View style={styles.readMoreHint}>
-    <Text style={styles.readMoreText}>
+    <Typography variant="caption" color="#388E3C">
       More
-    </Text>
+    </Typography>
     <Icons name="arrow-down" size={16} color="#388E3C" />
   </View>
 )}
@@ -267,12 +268,4 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
 
-  readMoreText: {
-    // backgroundColor: 'rgba(76,175,80,0.1)',
-    color: '#388E3C',
-    fontSize: 13,
-    paddingVertical: 4,
-    paddingHorizontal: 4,
-    // fontFamily: 'italic',
-  },
 });

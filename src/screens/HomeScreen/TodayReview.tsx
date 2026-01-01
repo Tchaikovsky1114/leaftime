@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, StyleSheet, Pressable } from 'react-native';
 import Icons from '../../assets/Icons';
+import Typography from '../../components/common/Typography';
 
 export default function TodayReview() {
   const [tasks, setTasks] = useState([
@@ -21,7 +22,7 @@ export default function TodayReview() {
 
   return (
     <View style={styles.card}>
-      <Text style={styles.header}>오늘 복습할 내용</Text>
+      <Typography variant="subtitle" weight="600" color="#2f4f4f" mb={12}>오늘 복습할 내용</Typography>
 
       {/* ProgressBar (간단한 View로 대체) */}
       <View style={styles.progressBar}>
@@ -36,14 +37,13 @@ export default function TodayReview() {
             size={20}
             color={task.done ? '#4CAF50' : '#ccc'}
           />
-          <Text
-            style={[
-              styles.taskText,
-              task.done && { color: '#aaa', textDecorationLine: 'line-through' },
-            ]}
+          <Typography
+            variant="body"
+            color={task.done ? '#aaa' : '#333'}
+            strike={task.done}
           >
             {task.title}
-          </Text>
+          </Typography>
         </Pressable>
       ))}
     </View>

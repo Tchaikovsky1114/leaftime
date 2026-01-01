@@ -16,19 +16,17 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 export default function RootNavigator() {
   const {isLoggedIn} = useAuthStore();
-
+  console.log('🚀 RootNavigator - isLoggedIn:', isLoggedIn);
   return (
     <Stack.Navigator
-  screenOptions={{
-    headerShown: false, // ✅ 헤더 제거
-    gestureEnabled: true,
-    headerShadowVisible: false,
-    header: () => null,
-
-    ...TransitionPresets.SlideFromRightIOS,
-
-  }}
->
+      screenOptions={{
+        headerShown: false,
+        gestureEnabled: true,
+        headerShadowVisible: false,
+        header: () => null,
+        ...TransitionPresets.SlideFromRightIOS,
+      }}
+    >
       {!isLoggedIn ? (
         <>
           <Stack.Screen name="Onboarding" component={OnboardingScreen} />

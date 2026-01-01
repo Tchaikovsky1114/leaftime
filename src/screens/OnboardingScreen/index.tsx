@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, Dimensions, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Image, Dimensions, TouchableOpacity, StyleSheet, ImageSourcePropType } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -10,7 +10,8 @@ import Animated, {
 import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { RootNavigation } from '../../navigation/types';
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Typography from '../../components/common/Typography';
 const { width } = Dimensions.get('window');
 
 const slides = [
@@ -39,16 +40,31 @@ export default function OnboardingScreen() {
     },
   });
 
-  const renderItem = ({ item }: {
-    item: { key: string; image: any };
+  const renderItem = ({ item,index }: {
+    item: { key: string; image: ImageSourcePropType }
+    index: number
   }) => (
     <View style={styles.slide}>
+      {!index ? <View style={{
+        position: 'absolute',
+        top: 80,
+        zIndex: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+        opacity: 0.78,
+        }}>
+      <Typography
+        variant="h2"
+        color="white"
+        weight="700"
+      >Swipe left</Typography>
+      <Ionicons name="play-forward-sharp" size={24} color="#fff" style={{ marginRight: 8 }} />
+      </View> : null}
       <Image source={item.image} style={styles.image} resizeMode="stretch" />
-
     </View>
   );
 
-  // Fade-in animation for "시작하기" button on last slide
   const showButton = useDerivedValue(() => {
     return scrollX.value >= (slides.length - 1) * width ? 1 : 0;
   });
@@ -77,7 +93,7 @@ export default function OnboardingScreen() {
       />
       <Animated.View style={[buttonAnimatedStyle]}>
         <TouchableOpacity style={[styles.button]} onPress={() => navigation.navigate('PhoneInput')}>
-          <Text style={styles.buttonText}>시작하기</Text>
+          <Typography variant="button" color="#fff">시작하기</Typography>
         </TouchableOpacity>
         {/* <TouchableOpacity onPress={() => navigation.navigate('Login')}
           style={{
@@ -85,7 +101,6 @@ export default function OnboardingScreen() {
           alignItems: 'center',
           height: 48,
           borderRadius: 30,
-
           }}
         >
         <Text style={styles.loginText}>이미 계정이 있으신가요? <Text style={{ fontWeight: 'bold',color: '#197b1c' }}>로그인</Text></Text>

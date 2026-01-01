@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Pressable, StyleSheet } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { FeedbackType } from '..';
 import Markdown from 'react-native-markdown-display';
 import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Typography from '../../../components/common/Typography';
 
 type Props = {
   sentence: string | null;
@@ -43,7 +44,7 @@ export default function FeedbackBottomSheetContent({
     <Animated.View entering={FadeIn} exiting={FadeOut} key={type}>
 
       {result?.length === 0 ? (
-        <Text style={styles.loadingText}>⏳ GPT로부터 피드백을 받아오는 중입니다...</Text>
+        <Typography variant="caption" color="#888">⏳ GPT로부터 피드백을 받아오는 중입니다...</Typography>
       ) : (
         // <ScrollView
         //     contentContainerStyle={{flexGrow: 1}}
@@ -79,14 +80,13 @@ export default function FeedbackBottomSheetContent({
               selectedTab === tab && styles.tabButtonActive,
             ]}
           >
-            <Text
-              style={[
-                styles.tabText,
-                selectedTab === tab && styles.tabTextActive,
-              ]}
+            <Typography
+              variant="caption"
+              color={selectedTab === tab ? '#fff' : '#4CAF50'}
+              weight={selectedTab === tab ? '700' : '400'}
             >
               {renderTitle(tab)}
-            </Text>
+            </Typography>
           </Pressable>
         ))}
       </View>
@@ -131,33 +131,14 @@ const styles = StyleSheet.create({
   tabButtonActive: {
     backgroundColor: '#4CAF50',
   },
-  tabText: {
-    fontFamily: 'Georgia',
-    fontSize: 14,
-    color: '#4CAF50',
-  },
-  tabTextActive: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 12,
-    fontFamily: 'Georgia',
-    color: '#388e3c',
-  },
+
   bodyText: {
     fontSize: 15,
     fontFamily: 'Georgia',
     color: '#444',
     lineHeight: 26,
   },
-  loadingText: {
-    fontSize: 14,
-    color: '#888',
-    fontFamily: 'Georgia',
-  },
+
 });
 
 const markdownStyles = {

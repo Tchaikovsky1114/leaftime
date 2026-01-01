@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   ScrollView,
   ActivityIndicator,
@@ -23,8 +22,9 @@ import { useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '../../apis/queries/queryKeys';
 import { useFeedbackSocket } from '../../hooks/useFeedbackSocket';
 
+import Typography from '../../components/common/Typography';
 const SectionTitle = ({ children }: { children: React.ReactNode }) => (
-  <Text style={styles.sectionTitle}>{children}</Text>
+  <Typography variant="subtitle" color="#388e3c" mt={24} mb={8}>{children}</Typography>
 );
 
 type ReportRouteProp = RouteProp<{ params: { date: string } }>;
@@ -84,7 +84,7 @@ const handleInteractionButtonPress = (sentence: string, sentenceId: string, type
     return (
       <View style={styles.centered}>
         <ActivityIndicator size="large" color="#4CAF50" />
-        <Text style={styles.loadingText}>리포트를 불러오는 중입니다...</Text>
+        <Typography variant="body" color="#666" mt={12}>리포트를 불러오는 중입니다...</Typography>
       </View>
     );
   }
@@ -92,7 +92,7 @@ const handleInteractionButtonPress = (sentence: string, sentenceId: string, type
   if (error) {
     return (
       <View style={styles.centered}>
-        <Text style={styles.loadingText}>리포트를 불러오는 데 오류가 발생했습니다.</Text>
+        <Typography variant="body" color="#666" mt={12}>리포트를 불러오는 데 오류가 발생했습니다.</Typography>
       </View>
     );
   }
@@ -118,11 +118,11 @@ const handleInteractionButtonPress = (sentence: string, sentenceId: string, type
     >
       <ScrollView style={styles.container}>
         <Animated.View entering={FadeIn} style={styles.introBox}>
-          <Text style={styles.introTitle}>🌿 {report.report_date} 학습 리포트</Text>
-          <Text style={styles.introSubtitle}>오늘도 한 걸음, 영어 감각에 물들었어요 🍃</Text>
-          <Text style={styles.summary}>
+          <Typography variant="h2" color="#1b5e20" weight="700" mb={6}>🌿 {report.report_date} 학습 리포트</Typography>
+          <Typography variant="body" color="#33691e" mb={6}>오늘도 한 걸음, 영어 감각에 물들었어요 🍃</Typography>
+          <Typography variant="caption" color="#4CAF50">
             저장한 문장 {savedSentences.length}개 · 인터렉션 {totalInteractions}회
-          </Text>
+          </Typography>
         </Animated.View>
 
         <SectionTitle>📝 저장한 문장 전체 보기</SectionTitle>
@@ -147,7 +147,7 @@ const handleInteractionButtonPress = (sentence: string, sentenceId: string, type
         ))}
         {
           frequentSentences.length === 0 && (
-            <Text style={styles.emptySentenceText}>오늘은 자주 저장된 문장이 없어요.</Text>
+            <Typography variant="body" color="#999" weight="700" align="center" mt={12} mb={12}>오늘은 자주 저장된 문장이 없어요.</Typography>
           )
         }
         <View style={{flexDirection: 'row', alignItems: 'center',marginBottom: 8}}>
@@ -157,13 +157,12 @@ const handleInteractionButtonPress = (sentence: string, sentenceId: string, type
             backgroundColor: stopwordDeleteMode ? '#4CAF50' : '#f8fef7',
             borderColor: !stopwordDeleteMode ? '#4CAF50' : '#f8fef7',
             }}>
-            <Text style={[styles.interactionText,{
-              color: stopwordDeleteMode ? '#fff' : '#4CAF50',
-              fontWeight: 'bold',
-              fontFamily: 'Georgia',
-            }]}>
+            <Typography variant="caption"
+              color={stopwordDeleteMode ? '#fff' : '#4CAF50'}
+              weight="700"
+            >
               차단 단어 관리
-            </Text>
+            </Typography>
           </Pressable>
         </View>
         <View style={styles.wordTagWrap}>
@@ -195,10 +194,10 @@ const handleInteractionButtonPress = (sentence: string, sentenceId: string, type
         </View>
 
         <Animated.View entering={FadeInDown.delay(600)} style={styles.nextSection}>
-          <Text style={styles.nextPrompt}> 내일도 리딩 이어가볼까요? ☀️</Text>
+          <Typography variant="body" color="#1b5e20" mb={12}> 내일도 리딩 이어가볼까요? ☀️</Typography>
           <Pressable style={styles.nextButton}>
             <Icons name="book" size={20} color="#fff" />
-            <Text style={styles.nextButtonText}>오늘 학습 완료하기</Text>
+            <Typography variant="button" color="#fff">오늘 학습 완료하기</Typography>
           </Pressable>
         </Animated.View>
       </ScrollView>
@@ -231,61 +230,16 @@ const handleInteractionButtonPress = (sentence: string, sentenceId: string, type
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 20, backgroundColor: '#f8fef7' },
   centered: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  loadingText: { marginTop: 12, fontSize: 16, color: '#666' },
   introBox: { marginBottom: 32, alignItems: 'center' },
-  introTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#1b5e20',
-    fontFamily: 'Georgia',
-  },
-  introSubtitle: {
-    fontSize: 16,
-    fontWeight: '400',
-    color: '#33691e',
-    fontFamily: 'Georgia',
-    marginBottom: 6,
-  },
-  summary: {
-    fontSize: 14,
-    color: '#4CAF50',
-    fontFamily: 'Georgia',
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginTop: 24,
-    marginBottom: 8,
-    color: '#388e3c',
-    fontFamily: 'Georgia',
-  },
-  savedSentence: {
-    fontSize: 15,
-    color: '#444',
-    marginBottom: 6,
-    fontFamily: 'Georgia',
-  },
   wordTagWrap: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
     marginBottom: 12,
   },
-  interactionText: {
-    fontSize: 12,
-    color: '#33691e',
-
-    fontFamily: 'Georgia',
-  },
   nextSection: {
     marginTop: 24,
     alignItems: 'center',
-  },
-  nextPrompt: {
-    fontSize: 16,
-    marginBottom: 12,
-    color: '#1b5e20',
-    fontFamily: 'Georgia',
   },
   nextButton: {
     flexDirection: 'row',
@@ -295,12 +249,6 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     alignItems: 'center',
     gap: 6,
-  },
-  nextButtonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontFamily: 'Georgia',
-    fontSize: 15,
   },
   stopWordButton: {
     marginLeft: 8, marginTop: 24,marginBottom: 8,
@@ -322,15 +270,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     zIndex: 1,
-  },
-  emptySentenceText: {
-    textAlign: 'center',
-    fontSize: 16,
-    color: '#999',
-    fontFamily: 'Georgia',
-    marginTop: 12,
-    marginBottom: 12,
-    fontWeight: 'bold',
   },
 });
 

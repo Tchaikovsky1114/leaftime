@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
-import { View, Text, useWindowDimensions, StyleSheet } from 'react-native';
+import { View, useWindowDimensions, StyleSheet } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import Typography from '../../components/common/Typography';
 
 const PronunciationTab = () => (
   <View style={styles.scene}>
-    <Text style={styles.tabText}>🔊 발음 연습 탭</Text>
+    <Typography variant="body" color="#333">🔊 발음 연습 탭</Typography>
   </View>
 );
 
 const SynonymTab = () => (
   <View style={styles.scene}>
-    <Text style={styles.tabText}>💡 유사어 보기 탭</Text>
+    <Typography variant="body" color="#333">💡 유사어 보기 탭</Typography>
   </View>
 );
 
 const ExampleTab = () => (
   <View style={styles.scene}>
-    <Text style={styles.tabText}>✍️ 예문 보기 탭</Text>
+    <Typography variant="body" color="#333">✍️ 예문 보기 탭</Typography>
   </View>
 );
 

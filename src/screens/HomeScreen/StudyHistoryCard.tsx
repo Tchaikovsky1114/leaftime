@@ -1,15 +1,16 @@
 // components/HomeScreen/StudyHistoryCard.tsx
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import Typography from '../../components/common/Typography';
 
 export default function StudyHistoryCard() {
   return (
     <View style={styles.card}>
-      <Text style={styles.date}>2024.04.20</Text>
-      <Text style={styles.time}>총 25분 학습</Text>
-      <Text style={styles.detail}>
+      <Typography variant="subtitle" color="#2f4f4f" weight="600" mb={4}>2024.04.20</Typography>
+      <Typography variant="caption" color="#4CAF50" mb={6}>총 25분 학습</Typography>
+      <Typography variant="caption" color="#444">
         🔊 발음 3개 • 💡 유사어 2개 • ✍️ 예문 1개
-      </Text>
+      </Typography>
     </View>
   );
 }

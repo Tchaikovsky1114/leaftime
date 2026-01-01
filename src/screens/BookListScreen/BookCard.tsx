@@ -1,8 +1,9 @@
 // src/screens/BookListScreen/BookCard.tsx
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 import FallbackImage from '../../components/common/FallbackImage';
 import { Book } from '../BookListScreen';
+import Typography from '../../components/common/Typography';
 
 interface BookCardProps {
   book: Book;
@@ -59,9 +60,9 @@ export default function BookCard({ book }: BookCardProps) {
       <View style={styles.row}>
         <FallbackImage uri={coverUrl} style={styles.cover} resizeMode="stretch" />
         <View style={styles.info}>
-          <Text style={styles.title}>{book.ko_title}</Text>
-          <Text style={styles.enTitle}>{book.title}</Text>
-          <Text style={styles.author}>{book.author}</Text>
+          <Typography variant="subtitle" color="#2e7d32" weight="600" mb={4}>{book.ko_title}</Typography>
+          <Typography variant="caption" weight="500" mb={4}>{book.title}</Typography>
+          <Typography variant="caption" color="#666">{book.author}</Typography>
           {/* <Text style={styles.download}>📅 Published: {book.date}</Text> */}
           <View style={styles.readingLevelWrapper}>
   {readingLevel() !== '' && (
@@ -75,18 +76,18 @@ export default function BookCard({ book }: BookCardProps) {
         </View>
       </View>
 
-      <TouchableOpacity onPress={() => setExpanded((prev) => !prev)} style={styles.toggle}>
-        <Text style={styles.toggleText}>{expanded ? '접기 ▲' : '자세히 보기 ▼'}</Text>
+        <TouchableOpacity onPress={() => setExpanded((prev) => !prev)} style={styles.toggle}>
+          <Typography variant="caption" color="#4CAF50">{expanded ? '접기 ▲' : '자세히 보기 ▼'}</Typography>
       </TouchableOpacity>
 
       {expanded && (
         <View style={styles.details}>
-          <Text style={styles.summary}>📖 {book.ko_description}</Text>
-          <Text style={styles.enSummary}>📖 {book.description}</Text>
+          <Typography variant="body" color="#444">📖 {book.ko_description}</Typography>
+          <Typography variant="caption" color="#666" mb={10}>📖 {book.description}</Typography>
           <View style={styles.tags}>
             {tags.map((tag, idx) => (
               <View key={idx} style={styles.tag}>
-                <Text style={styles.tagText}>{tag}</Text>
+                <Typography variant="caption" color="#2e7d32">{tag}</Typography>
               </View>
             ))}
           </View>

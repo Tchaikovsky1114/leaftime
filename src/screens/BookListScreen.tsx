@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, ActivityIndicator, TouchableOpacity, StyleSheet, Pressable, Modal } from 'react-native';
+import { View, FlatList, ActivityIndicator, TouchableOpacity, StyleSheet, Pressable, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import BookCard from './BookListScreen/BookCard';
 import StartReadingModal from '../components/StartReadingModal';
@@ -12,6 +12,7 @@ import { useAlertStore } from '../store/alertStore';
 import { useTimerStore } from '../store/useTimerStore';
 import { RootNavigation } from '../navigation/types';
 import { BASE_URL } from '../apis/auth/fetcher';
+import Typography from '../components/common/Typography';
 
 export interface Book {
   _id: number;
@@ -82,7 +83,7 @@ const confirmPageInput = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.header}>📚 도서 선택</Text>
+      <Typography variant="h2" weight="700">📚 도서 선택</Typography>
 
       {loading ? (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -107,7 +108,7 @@ const confirmPageInput = () => {
 
         </TouchableOpacity>
         <Pressable style={styles.pageIndicator} onPress={() => setInputVisible(true)}>
-          <Text style={styles.pageNumber}>📄 {page} / {totalPages}</Text>
+          <Typography variant="caption" weight="600" color="#388E3C">📄 {page} / {totalPages}</Typography>
         </Pressable>
 
 
@@ -149,8 +150,8 @@ const confirmPageInput = () => {
       <Modal visible={inputVisible} transparent animationType="fade">
   <View style={styles.modalContainer}>
     <View style={styles.leafModal}>
-      <Text style={styles.leafModalTitle}>어디로 이동할까요? 🍀</Text>
-      <Text style={styles.leafModalSub}>1 ~ {totalPages} 사이의 숫자를 입력해주세요 </Text>
+      <Typography variant="subtitle" color="#2e7d32" weight="600" mb={6}>어디로 이동할까요? 🍀</Typography>
+      <Typography variant="caption" color="#888" mb={16}>1 ~ {totalPages} 사이의 숫자를 입력해주세요 </Typography>
 
       <TextInput
         style={styles.leafInput}
@@ -163,10 +164,10 @@ const confirmPageInput = () => {
 
       <View style={styles.buttonRow}>
         <TouchableOpacity style={styles.cancelButton} onPress={() => setInputVisible(false)}>
-          <Text style={styles.cancelText}>취소</Text>
+          <Typography variant="caption" color="#555">취소</Typography>
         </TouchableOpacity>
         <TouchableOpacity style={styles.startButton} onPress={confirmPageInput}>
-          <Text style={styles.startText}>이동</Text>
+          <Typography variant="button" color="#fff">이동</Typography>
         </TouchableOpacity>
       </View>
     </View>
