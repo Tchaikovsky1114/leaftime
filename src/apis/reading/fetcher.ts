@@ -1,5 +1,6 @@
 import { useReadingStore, Word } from '../../store/readingStore';
-import { api } from '../auth/fetcher';
+import { apiClient } from '../client/axiosClient';
+import { readingApi } from './api';
 
 export function chunkText(text: string, maxLen = 2000): string[] {
   console.log('===[chunkText] text===', text);
@@ -134,30 +135,14 @@ export async function startReading(bookId: number): Promise<boolean> {
     }
 
     // ✅ 다른 책이면 서버에서 새로 받아오기
-    const res = await api('/start-reading', {
-      method: 'POST',
-      body: JSON.stringify({ bookId }),
-    });
-
-    if (!res.ok) {
-      console.error('start-reading 요청 실패:', await res.text());
-      return false;
-    }
-
-    const { title, text_url, current_chunk_index } = await res.json();
+    const { title, text_url, current_chunk_index } = await readingApi.startReading(bookId);
 
     if (!text_url) {
       console.error('❌ 서버 응답에 text_url 없음');
       return false;
     }
 
-    const textRes = await fetch(text_url);
-    if (!textRes.ok) {
-      console.error('❌ 텍스트 파일 fetch 실패');
-      return false;
-    }
-
-    const rawText = await textRes.text();
+    const rawText = await readingApi.fetchTextContent(text_url);
     if (!rawText || rawText.length < 100) {
       console.error('❌ 텍스트가 비어있거나 너무 짧습니다');
       return false;
@@ -200,48 +185,11 @@ export async function startReading(bookId: number): Promise<boolean> {
   }
 }
 
-interface CurrentReadingResponse {
-  bookId: number;
-  title: string;
-  currentChunkIndex: number;
-  coverImage: string;
-}
-export async function getCurrentReadingBook(): Promise< CurrentReadingResponse | null> {
-  try {
-    const res = await api('/get-current-reading');
-
-    if (!res.ok) {
-      console.error('get-current-reading 실패:', await res.text());
-      return null;
-    }
-
-    const currentBook: CurrentReadingResponse = await res.json(); // { bookId, title, currentChunkIndex, coverImage }
-
-    return currentBook;
-  } catch (error) {
-    console.error('getCurrentReadingBook 오류:', error);
-    return null;
-  }
-
+// 하위 호환성을 위한 래퍼 함수들 (점진적 마이그레이션용)
+export async function getCurrentReadingBook() {
+  return readingApi.getCurrentReading();
 }
 
-export async function repeatReadingRound(
-  bookId: number,
-  chunkIndex: number,
-): Promise<{ success: boolean; newRound: number }> {
-  try {
-    const res = await api('/repeat-round', {
-      method: 'POST',
-      body: JSON.stringify({ bookId, chunkIndex }),
-    });
-
-    if (!res.ok) {
-      throw new Error(await res.text());
-    }
-
-    return res.json();
-  } catch (err) {
-    console.error('🔥 repeatReadingRound 실패:', err);
-    throw err;
-  }
+export async function repeatReadingRound(bookId: number, chunkIndex: number) {
+  return readingApi.repeatRound(bookId, chunkIndex);
 }

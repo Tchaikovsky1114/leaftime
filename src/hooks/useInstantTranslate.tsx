@@ -1,6 +1,5 @@
 import { useState, useRef, useCallback } from 'react';
-import axios from 'axios';
-import { BASE_URL } from '../apis/auth/fetcher';
+import { apiClient } from '../apis/client/axiosClient';
 
 export const useInstantTranslate = () => {
   const [translatedText, setTranslatedText] = useState<string | null>(null);
@@ -10,7 +9,7 @@ export const useInstantTranslate = () => {
   const translate = async (text: string) => {
     try {
       setLoading(true);
-      const res = await axios.post(`${BASE_URL}/instant-translate`, { text });
+      const res = await apiClient.post<{ translatedText: string }>('/instant-translate', { text });
 
       const result = res.data?.translatedText;
       if (!result || typeof result !== 'string') {
@@ -29,8 +28,7 @@ export const useInstantTranslate = () => {
     } catch (err: any) {
       console.error('번역 실패:', err?.response?.data || err.message);
 
-      // 선택: 사용자에게 직접 보여줄 에러 메시지 처리도 가능
-      setTranslatedText('❌ 번역에 실패했습니다.'); // 또는 null
+      setTranslatedText('❌ 번역에 실패했습니다.');
       timeoutRef.current = setTimeout(() => {
         setTranslatedText(null);
       }, 3000);

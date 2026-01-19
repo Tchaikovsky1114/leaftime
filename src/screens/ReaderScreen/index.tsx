@@ -17,7 +17,7 @@ import Animated, {
 // import { useAlertStore } from '../../store/alertStore';
 import ReaderScreenAnimated from './components/ReaderScreenAnimated';
 import { useReadingSelectionStore } from '../../store/readingSelectionStore';
-import { api } from '../../apis/auth/fetcher';
+import { apiClient } from '../../apis/client/axiosClient';
 import { useNavigation } from '@react-navigation/native';
 import { RootNavigation } from '../../navigation/types';
 import { useSelectedWordText } from '../../hooks/useSelectedWordText';
@@ -127,49 +127,23 @@ const {setRunning} = useTimerStore();
     const today = dayjs().format('YYYY-MM-DD');
     try {
       // ✅ 1. /complete-chunk API 호출
-      const completeRes = await api('/complete-chunk', {
-        method: 'POST',
-        body: JSON.stringify({
-          bookId: currentBookId,
-          currentChunkIndex,
-          currentPageIndex,
-        }),
+      await apiClient.post('/complete-chunk', {
+        bookId: currentBookId,
+        currentChunkIndex,
+        currentPageIndex,
       });
-
-      if (!completeRes.ok) {
-        throw new Error(await completeRes.text());
-      }
 
       // ✅ 2. (추후) 저장한 문장도 전송할 준비
       if (selectedSentences.length > 0) {
         try {
-          const saveRes = await api('/reports/upsert-sentences', {
-            method: 'POST',
-            body: JSON.stringify({
-              bookId: currentBookId,
-              sentences: selectedSentences,
-              chunkIndex: currentChunkIndex,
-            }),
+          await apiClient.post('/reports/upsert-sentences', {
+            bookId: currentBookId,
+            sentences: selectedSentences,
+            chunkIndex: currentChunkIndex,
           });
-
-          if (!saveRes.ok) {
-            throw new Error(await saveRes.text());
-          }
         } catch (error) {
           console.error('🔥 문장 저장 오류', error);
         }
-
-        // 리포트 생성은 save-sentences와 통합
-        // try {
-        //   await api('/reports/generate-daily', {
-        //     method: 'POST',
-        //     body: JSON.stringify({
-        //       date: today, // '2025-05-02'
-        //     }),
-        //   });
-        // } catch (error) {
-        //   console.error('🔥 일일 리포트 생성 오류', error);
-        // }
       }
       clearSelections();
       navigation.reset({

@@ -4,14 +4,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import BookCard from './BookListScreen/BookCard';
 import StartReadingModal from '../components/StartReadingModal';
 import { useNavigation } from '@react-navigation/native';
-import axios from 'axios';
+import { apiClient } from '../apis/client/axiosClient';
 import Icons from '../assets/Icons';
 import { TextInput } from 'react-native-gesture-handler';
 import { startReading } from '../apis/reading/fetcher';
 import { useAlertStore } from '../store/alertStore';
 import { useTimerStore } from '../store/useTimerStore';
 import { RootNavigation } from '../navigation/types';
-import { BASE_URL } from '../apis/auth/fetcher';
 import Typography from '../components/common/Typography';
 
 export interface Book {
@@ -55,7 +54,9 @@ const confirmPageInput = () => {
   const fetchBooks = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${BASE_URL}/books?page=${page}&limit=5`);
+      const res = await apiClient.get<{ data: Book[]; meta: { lastPage: number } }>(
+        `/books?page=${page}&limit=5`
+      );
       setBooks(res.data.data);
       setTotalPages(res.data.meta.lastPage);
     } catch (err) {

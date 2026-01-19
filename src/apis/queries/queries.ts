@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from './queryKeys';
-import { getCurrentReadingBook } from '../reading/fetcher';
-import { getStudySummary } from '../study-log/fetcher';
-import { getDailyReport } from '../reports/fetcher';
+import { readingApi } from '../reading/api';
+import { studyLogApi } from '../study-log/api';
+import { reportsApi } from '../reports/api';
 
 export const useCurrentReading = () => {
   return useQuery({
     queryKey: QUERY_KEYS.currentReading,
-    queryFn: getCurrentReadingBook,
+    queryFn: readingApi.getCurrentReading,
     staleTime: 1000 * 60 * 10, // 10분
   });
 };
@@ -15,7 +15,7 @@ export const useCurrentReading = () => {
 export const useStudySummary = () => {
   return useQuery({
     queryKey: QUERY_KEYS.studySummary,
-    queryFn: getStudySummary,
+    queryFn: studyLogApi.getStudySummary,
     staleTime: 1000 * 60 * 10, // 10분 동안 fresh
   });
 };
@@ -23,7 +23,7 @@ export const useStudySummary = () => {
 export const useDailyReport = (date: string) => {
   return useQuery({
     queryKey: QUERY_KEYS.dailyReport(date),
-    queryFn: () => getDailyReport(date),
+    queryFn: () => reportsApi.getDailyReport(date),
     staleTime: 1000 * 60 * 10, // 10분 캐시
     enabled: !!date, // date가 있을 때만 쿼리 실행
   });

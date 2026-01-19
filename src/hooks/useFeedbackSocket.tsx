@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
-import { BASE_URL } from '../apis/auth/fetcher';
+import { BASE_URL } from '../apis/client/axiosClient';
 import { useAuthStore } from '../store/authStore';
 import { FeedbackType } from '../screens/LearningReportScreen';
 import { useQueryClient } from '@tanstack/react-query';
