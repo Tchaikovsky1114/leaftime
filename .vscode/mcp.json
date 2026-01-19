@@ -1,0 +1,14 @@
+{
+  "servers": {
+    "Context7": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp@latest",
+        "--api-key",
+        "ctx7sk-242cfd38-01f7-46de-a7f8-2833d4c97a15"
+      ]
+    }
+  }
+}
